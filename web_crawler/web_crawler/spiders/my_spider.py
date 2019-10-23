@@ -5,7 +5,6 @@ from indexer import InvertedIndex
 
 class WebSpider(scrapy.Spider):    
    name = "web"
-   frontier = FIFOFrontier()
    indexer = InvertedIndex()
    
 
@@ -16,11 +15,9 @@ class WebSpider(scrapy.Spider):
          'http://quotes.toscrape.com/page/1/'
       ]
 
-      # Add initial URL to frontier and start crawling
-      self.frontier.addURL(urls[0])
-
       # Start crawling process
-      yield scrapy.Request(url=self.frontier.popURL(), callback=self.parse)
+      for u in urls:
+         yield scrapy.Request(url=u, callback=self.parse)
 
 
    # Crawling Algorithm
@@ -29,7 +26,7 @@ class WebSpider(scrapy.Spider):
 
       Scrapy handles compliance of Politeness policies    
       '''
-
+      
       # Preprocess the url's html and keep raw text only 
       # TODO:lemmatization, stemming
       raw_text =''.join(response.xpath("//body//text()").extract()).strip()
@@ -39,7 +36,10 @@ class WebSpider(scrapy.Spider):
       
       # Extract url references and add them to the frontier
       for a in response.css('a'):
-         self.frontier.addURL(response.urljoin(a.attrib['href']))
+         yield response.follow(a, callback=self.parse)
 
-      # Retrieve the url and crawl the next document
-      yield scrapy.Request(url=self.frontier.popURL(), callback=self.parse)
+      # WRITE TO FILE TESTS
+      t = response.request.url
+      filename = f'data/links'
+      with open(filename, 'w') as f:
+         f.write(t)

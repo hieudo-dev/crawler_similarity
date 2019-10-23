@@ -1,4 +1,10 @@
 
+
+
+# THIS IS NO LONGER NEED BECAUSE THE FRONTIER IS COUPLED WITH SCRAPY 
+
+
+
 # Abstract class definition for an URL Frontier
 class URLFrontier:
    def __init__(self, parameter_list):

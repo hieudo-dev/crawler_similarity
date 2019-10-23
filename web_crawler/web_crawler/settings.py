@@ -15,6 +15,14 @@ SPIDER_MODULES = ['web_crawler.spiders']
 NEWSPIDER_MODULE = 'web_crawler.spiders'
 
 
+# Use FIFO frontier policy with a limited depth----------------------------------
+DEPTH_PRIORITY = 1
+DEPTH_LIMIT = 20
+SCHEDULER_DISK_QUEUE = 'scrapy.squeues.PickleFifoDiskQueue'
+SCHEDULER_MEMORY_QUEUE = 'scrapy.squeues.FifoMemoryQueue'
+#-----------------------------------------------------------
+
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'web_crawler (+http://www.yourdomain.com)'
 
@@ -29,7 +37,7 @@ ROBOTSTXT_OBEY = True
 # See also autothrottle settings and docs
 #DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
-#CONCURRENT_REQUESTS_PER_DOMAIN = 16
+CONCURRENT_REQUESTS_PER_DOMAIN = 1
 #CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
