@@ -34,12 +34,11 @@ class WebSpider(scrapy.Spider):
       # Index the current document
       self.indexer.index((raw_text, response.request.url))
       
-      # Extract url references and add them to the frontier
+      # Extract url references and add them to the url frontier
       for a in response.css('a'):
          yield response.follow(a, callback=self.parse)
 
-      # WRITE TO FILE TESTS
-      t = response.request.url
+      # WRITE LINKS TO FILE -- TEST
       filename = f'data/links'
       with open(filename, 'w') as f:
-         f.write(t)
+         f.write(response.request.url)

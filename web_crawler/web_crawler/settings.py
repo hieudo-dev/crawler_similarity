@@ -15,11 +15,13 @@ SPIDER_MODULES = ['web_crawler.spiders']
 NEWSPIDER_MODULE = 'web_crawler.spiders'
 
 
-# Use FIFO frontier policy with a limited depth----------------------------------
-DEPTH_PRIORITY = 1
+# Use DFS frontier order with a limited depth----------------------------------
 DEPTH_LIMIT = 20
-SCHEDULER_DISK_QUEUE = 'scrapy.squeues.PickleFifoDiskQueue'
-SCHEDULER_MEMORY_QUEUE = 'scrapy.squeues.FifoMemoryQueue'
+
+# Comment depth limit and uncomment these lines to use BFS order
+# DEPTH_PRIORITY = 1
+# SCHEDULER_DISK_QUEUE = 'scrapy.squeues.PickleFifoDiskQueue'
+# SCHEDULER_MEMORY_QUEUE = 'scrapy.squeues.FifoMemoryQueue'
 #-----------------------------------------------------------
 
 
