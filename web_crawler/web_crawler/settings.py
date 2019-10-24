@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = 'web_crawler.spiders'
 
 
 # Use DFS frontier order with a limited depth----------------------------------
-DEPTH_LIMIT = 100
+DEPTH_LIMIT = 15
 
 # Comment depth limit and uncomment these lines to use BFS order
 # DEPTH_PRIORITY = 1

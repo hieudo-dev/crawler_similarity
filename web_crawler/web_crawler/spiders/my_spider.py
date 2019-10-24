@@ -46,7 +46,10 @@ class WebSpider(scrapy.Spider):
 
       # Extract url references and add them to the url frontier
       for a in response.css('a'):
-         yield response.follow(a, callback=self.parse)
+         try:
+            yield response.follow(a, callback=self.parse)
+         except Exception:
+            pass
 
       # WRITE CURRENT LINK TO FILE -- TEST
       filename = f'current'
