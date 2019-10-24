@@ -5,7 +5,7 @@ class DataStore:
    def __init__(self):
       self.documents = []
       self.tf = []
-      self.idf = dict()
+      self.idf = defaultdict(int)
       self.count = 1
 
 
@@ -43,7 +43,7 @@ class DataStore:
       # Add the new document with its url, html content and tf table
       new_doc = {
          'url': url,
-         'html': html,
+         'html': html.decode("utf-8"),
          'tf': tf
       }
       self.documents.append(new_doc)   # THIS MIGHT CAUSE MEMORY ERRORS AND MIGHT NEED TO BE COMMENTED 
@@ -52,3 +52,5 @@ class DataStore:
       with open(f'webs/{self.count}.json', 'w') as f:
          f.write(json.dumps(new_doc))
       self.count += 1
+
+      print('\n\n')

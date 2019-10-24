@@ -42,6 +42,7 @@ class WebSpider(scrapy.Spider):
          yield response.follow(a, callback=self.parse)
 
       # WRITE LINKS TO FILE -- TEST
-      filename = f'web/links'
+      filename = f'webs/links'
       with open(filename, 'w') as f:
-         f.write(self.count + " " + url)
+         f.write(str(self.count) + " " + url)
+         self.count += 1
