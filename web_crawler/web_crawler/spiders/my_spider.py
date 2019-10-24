@@ -1,10 +1,19 @@
 import scrapy
+from scrapy import signals
+from scrapy.exceptions import CloseSpider
+from scrapy.xlib.pydispatch import dispatcher
 from preprocessing import Preprocess
 from data_store import DataStore
+   
+   
+LIMIT = 10000
 
 class WebSpider(scrapy.Spider):    
    name = "web"
-   dstore = DataStore()   
+
+   def __init__(self):
+      self.dstore = DataStore()   
+      dispatcher.connect(self.spider_closed, signals.spider_closed)
 
    # Scrapy's method to start crawling
    def start_requests(self):
@@ -29,10 +38,6 @@ class WebSpider(scrapy.Spider):
       Scrapy handles compliance of Politeness policies    
       '''
 
-      # Limit of pages to crawl
-      if self.count >= 10000:
-         return
-
       url = response.request.url
 
       # Remove html elements from the document
@@ -42,19 +47,26 @@ class WebSpider(scrapy.Spider):
       tokens = Preprocess(raw_text)
 
       # Compute document's informations and store it in the local storage
-      self.dstore.add_document(tokens, response.body, url)
+      if self.count < LIMIT:
+         self.dstore.add_document(tokens, response.body, url)
 
       # Extract url references and add them to the url frontier
       for a in response.css('a'):
-         try:
+         if 'href' in a.attrib:
             yield response.follow(a, callback=self.parse)
-         except Exception:
-            pass
 
       # WRITE CURRENT LINK TO FILE -- TEST
       filename = f'current'
       with open(filename, 'w') as f:
          f.write(str(self.count) + " " + url)
-         self.count += 1
-
       print('\n\n')
+
+      # Limit of pages to crawl
+      if self.count > LIMIT:
+         raise CloseSpider(reason='finished')
+
+      self.count += 1
+      
+
+   def spider_closed(self, spider):
+      self.dstore.store_idf()
