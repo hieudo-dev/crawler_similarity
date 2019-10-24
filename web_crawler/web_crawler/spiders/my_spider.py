@@ -10,7 +10,10 @@ class WebSpider(scrapy.Spider):
    def start_requests(self):
       # Seed URLs
       urls = [
-         'http://quotes.toscrape.com/page/1/'
+         'https://es.wikipedia.org/wiki/Procesamiento_de_lenguajes_naturales',
+         'https://es.wikipedia.org/wiki/Aprendizaje_autom%C3%A1tico',
+         'https://es.wikipedia.org/wiki/B%C3%BAsqueda_y_recuperaci%C3%B3n_de_informaci%C3%B3n',
+         'https://es.wikipedia.org/wiki/Modelo_de_espacio_vectorial'
       ]
 
       # Start crawling process
@@ -25,6 +28,10 @@ class WebSpider(scrapy.Spider):
 
       Scrapy handles compliance of Politeness policies    
       '''
+
+      # Limit of pages to crawl
+      if self.count >= 10000:
+         return
 
       url = response.request.url
 
@@ -41,8 +48,10 @@ class WebSpider(scrapy.Spider):
       for a in response.css('a'):
          yield response.follow(a, callback=self.parse)
 
-      # WRITE LINKS TO FILE -- TEST
-      filename = f'webs/links'
+      # WRITE CURRENT LINK TO FILE -- TEST
+      filename = f'current'
       with open(filename, 'w') as f:
          f.write(str(self.count) + " " + url)
          self.count += 1
+
+      print('\n\n')

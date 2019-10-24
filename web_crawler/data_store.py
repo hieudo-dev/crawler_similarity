@@ -52,5 +52,3 @@ class DataStore:
       with open(f'webs/{self.count}.json', 'w') as f:
          f.write(json.dumps(new_doc))
       self.count += 1
-
-      print('\n\n')
