@@ -63,7 +63,7 @@ class WebSpider(scrapy.Spider):
 
       # Limit of pages to crawl
       if self.count > LIMIT:
-         raise CloseSpider(reason='finished')
+         raise CloseSpider(reason='reached_limit')
 
       self.count += 1
       

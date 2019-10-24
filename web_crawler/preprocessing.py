@@ -24,7 +24,7 @@ def Preprocess(text):
    words = []
    for word in tokens:
       w = word.lower()
-      if w not in sw:
+      if w in sw:
          continue
       words.append(lemmatizer.lemmatize(w))
 
