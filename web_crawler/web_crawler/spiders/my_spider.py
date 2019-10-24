@@ -1,16 +1,13 @@
 import scrapy
-from frontier import FIFOFrontier
-from indexer import InvertedIndex
 
 
 class WebSpider(scrapy.Spider):    
    name = "web"
-   indexer = InvertedIndex()
    
 
    # Scrapy's method to start crawling
    def start_requests(self):
-      # Seed URL; This will also be used to compute similarity rankings
+      # Seed URLs
       urls = [
          'http://quotes.toscrape.com/page/1/'
       ]
@@ -30,9 +27,6 @@ class WebSpider(scrapy.Spider):
       # Preprocess the url's html and keep raw text only 
       # TODO:lemmatization, stemming
       raw_text =''.join(response.xpath("//body//text()").extract()).strip()
-
-      # Index the current document
-      self.indexer.index((raw_text, response.request.url))
       
       # Extract url references and add them to the url frontier
       for a in response.css('a'):

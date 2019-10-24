@@ -5,7 +5,6 @@ This is a basic web crawler implemented using Python 3 and the Scrapy library.
 - Compliance with Politeness policies *(Scrapy's features)*
 - Depth First Order URL Frontier  *(web_crawler/web_crawler/settings.py)*
 - Crawls up to a depth of 20 levels  *(web_crawler/web_crawler/settings.py)*
-- Inverted Index Indexer
 
 ##     Crawling algorithm
 Generic crawling algorithm followed by this program
