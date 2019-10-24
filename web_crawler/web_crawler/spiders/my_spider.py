@@ -40,7 +40,7 @@ class WebSpider(scrapy.Spider):
 
       url = response.request.url
 
-      # Remove html elements from the document
+      # Remove html tags from the document
       raw_text =''.join(response.xpath("//body//text()").extract()).strip()
 
       # Preprocess the document's content
@@ -63,7 +63,7 @@ class WebSpider(scrapy.Spider):
 
       # Limit of pages to crawl
       if self.count > LIMIT:
-         raise CloseSpider(reason='reached_limit')
+         raise CloseSpider(reason='reached_limit')    # Force spider to close
 
       self.count += 1
       

@@ -8,6 +8,7 @@ This is a basic web crawler implemented using Python 3 and the Scrapy library.
 
 ## Requirements
 - NLTK stopwords (execute with python **nltk.download('stopwords')**)
+- NLTK WordNet (execute with python **nltk.download('wordnet')**)
 - Scrapy (install with **pip install scrapy**) 
 - NLTK (install with **pip install nltk**) 
 
