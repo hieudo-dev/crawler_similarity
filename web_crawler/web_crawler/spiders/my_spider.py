@@ -2,7 +2,7 @@ import scrapy
 from scrapy import signals
 from scrapy.exceptions import CloseSpider
 from scrapy.xlib.pydispatch import dispatcher
-from preprocessing import Preprocess
+from preprocessing import Preprocess, GetText
 from data_store import DataStore
    
    
@@ -42,7 +42,7 @@ class WebSpider(scrapy.Spider):
       url = response.request.url
 
       # Remove html tags from the document
-      raw_text =''.join(response.xpath("//body//text()").extract()).strip()
+      raw_text =  GetText(response.body)
 
       # Preprocess the document's content
       tokens = Preprocess(raw_text)
