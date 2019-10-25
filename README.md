@@ -25,7 +25,9 @@ cd web_crawler
 scrapy crawl web
 ```
 
-webpages will be preprocessed, split into token lists and stored in */web_crawler/data/docs.json*; the corresponding urls will also be stored in the json.
+Seed URLs can be changed in */web_crawler/web_crawler/spiders/my_spider.py*.
+
+Webpages will be preprocessed, split into token lists and stored in */web_crawler/data/docs.json*; the corresponding urls will also be stored in the json.
 
 ## Queries
 To make queries modify the target URL in */query.py* and run:
