@@ -12,8 +12,8 @@ class WebSpider(scrapy.Spider):
    name = "web"
 
    def __init__(self):
-      self.dstore = DataStore()   
       dispatcher.connect(self.spider_closed, signals.spider_closed)
+      self.dstore = DataStore()   
 
    # Scrapy's method to start crawling
    def start_requests(self):
@@ -61,9 +61,10 @@ class WebSpider(scrapy.Spider):
          raise CloseSpider(reason='reached_limit')    # Force spider to close
 
       print(str(self.count) + '\n\n')     # IGNORE/COMMENT THIS
+      
       self.count += 1
       
 
    def spider_closed(self, spider):
-      # Store scraped documents
+      # Store scraped documents when spider finishes crawling
       self.dstore.store_data()

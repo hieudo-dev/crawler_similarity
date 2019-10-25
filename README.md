@@ -1,7 +1,7 @@
 # Web crawler
 This program consists of 2 sub-programs:
-- One is a basic web crawler implemented using Python 3 and the Scrapy library (**web_crawler/**).
-- The other program is a Python script that can be used to make queries on the scraped websites; Given an URL fetch the corresponding webpage, rank the scraped websites according to their similarity to the query and return the top M (**query.py**).
+- One is a basic web crawler implemented using Python 3 and the Scrapy library (**/web_crawler**).
+- The other program is a Python script that can be used to make queries on the scraped websites; Given an URL fetch the corresponding webpage, rank the scraped websites according to their similarity to the query and return the top M (**/query.py**).
 
 ## Features
 - Compliance with Politeness policies *(Scrapy's feature)*

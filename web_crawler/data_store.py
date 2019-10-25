@@ -1,6 +1,9 @@
 from collections import defaultdict
 import json
 
+
+# This class defines how documents are stored in local storage
+
 class DataStore:
    def __init__(self):
       self.documents = []

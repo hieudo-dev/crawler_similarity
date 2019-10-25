@@ -3,6 +3,8 @@ from nltk.tokenize import RegexpTokenizer
 import nltk
 
 
+# This method defines how documents are preprocessed
+
 # Create Lemmatizer
 lemmatizer = WordNetLemmatizer() 
 
