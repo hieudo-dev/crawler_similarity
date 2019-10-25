@@ -6,7 +6,7 @@ from preprocessing import Preprocess
 from data_store import DataStore
    
    
-LIMIT = 10000
+LIMIT = 1000
 
 class WebSpider(scrapy.Spider):    
    name = "web"
@@ -29,6 +29,7 @@ class WebSpider(scrapy.Spider):
       for u in urls:
          yield scrapy.Request(url=u, callback=self.parse)
 
+      # Set scraped count to 0
       self.count = 0
 
    # Crawling Algorithm
@@ -55,16 +56,11 @@ class WebSpider(scrapy.Spider):
          if 'href' in a.attrib:
             yield response.follow(a, callback=self.parse)
 
-      # WRITE CURRENT LINK TO FILE -- TEST
-      filename = f'current'
-      with open(filename, 'w') as f:
-         f.write(str(self.count) + " " + url)
-      print('\n\n')
-
       # Limit of pages to crawl
       if self.count > LIMIT:
          raise CloseSpider(reason='reached_limit')    # Force spider to close
 
+      print(str(self.count) + '\n\n')     # IGNORE/COMMENT THIS
       self.count += 1
       
 

@@ -14,6 +14,12 @@ sw = nltk.corpus.stopwords.words('spanish')
 
 
 def Preprocess(text):
+   '''
+   Returns documents token list 
+   Tokens are lemmatized
+   Stop words are removed
+   '''
+   
    # Tokenize document
    tokens = tokenizer.tokenize(text)
 

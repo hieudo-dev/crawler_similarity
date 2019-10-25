@@ -21,6 +21,6 @@ class DataStore:
       # Add the new document with its url and terms content
       new_doc = {
          'url': url,
-         'content': document
+         'content': ' '.join(document)
       }
       self.documents.append(new_doc)
