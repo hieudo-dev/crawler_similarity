@@ -46,7 +46,7 @@ class WebSpider(scrapy.Spider):
       # Preprocess the document's content
       tokens = Preprocess(raw_text)
 
-      # Compute document's informations and store it in the local storage
+      # Add document to be stored in local storage
       if self.count < LIMIT:
          self.dstore.add_document(tokens, response.body, url)
 
@@ -69,4 +69,5 @@ class WebSpider(scrapy.Spider):
       
 
    def spider_closed(self, spider):
-      self.dstore.store_idf()
+      # Store scraped documents
+      self.dstore.store_data()
