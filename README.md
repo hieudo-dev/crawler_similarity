@@ -21,13 +21,13 @@ This program consists of 2 sub-programs:
 To start the crawling process, first configure the crawler with the desired settings (*/web_crawler/web_crawler/settings.py* and */web_crawler/web_crawler/spiders/my_spider.py*) and run:
 
 ```bash
-cd web_crawler
-scrapy crawl web
+cd web_crawler/web_crawler/spiders/
+python my_spider.py
 ```
 
 Seed URLs can be changed in */web_crawler/web_crawler/spiders/my_spider.py*.
 
-Webpages will be preprocessed, split into token lists and stored in */web_crawler/data/docs.json*; the corresponding urls will also be stored in the json.
+Webpages will be preprocessed, split into token lists and stored in */web_crawler/web_crawler/spiders/data/docs.json*; the corresponding urls will also be stored in the json.
 
 ## Queries
 To make queries modify the target URL in */query.py* and run:
