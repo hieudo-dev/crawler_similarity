@@ -3,3 +3,4 @@
 /web_crawler/webs/*
 web_crawler/current
 results/*
+web_crawler/web_crawler/spiders/data/docs.json

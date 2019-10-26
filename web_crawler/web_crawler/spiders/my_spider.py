@@ -4,9 +4,10 @@ from scrapy.exceptions import CloseSpider
 from scrapy.xlib.pydispatch import dispatcher
 from preprocessing import Preprocess, GetText
 from data_store import DataStore
-   
-   
-LIMIT = 1000
+from scrapy.crawler import CrawlerProcess
+
+
+LIMIT = 100
 
 class WebSpider(scrapy.Spider):    
    name = "web"
@@ -42,7 +43,7 @@ class WebSpider(scrapy.Spider):
       url = response.request.url
 
       # Remove html tags from the document
-      raw_text =  GetText(response.body)
+      raw_text = GetText(response.body)
 
       # Preprocess the document's content
       tokens = Preprocess(raw_text)
@@ -68,3 +69,11 @@ class WebSpider(scrapy.Spider):
    def spider_closed(self, spider):
       # Store scraped documents when spider finishes crawling
       self.dstore.store_data()
+      
+
+process = CrawlerProcess(settings={
+    'FEED_FORMAT': 'json'
+})
+
+process.crawl(WebSpider)
+process.start() # the script will block here until the crawling is finished

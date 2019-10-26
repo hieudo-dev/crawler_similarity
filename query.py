@@ -2,35 +2,35 @@ import heapq
 import json
 import requests
 import spacy
-from web_crawler.preprocessing import Preprocess
+from web_crawler.web_crawler.spiders.preprocessing import Preprocess, GetText
 
 
 # Length of documents collection
-N = 10000
+N = 100
 
 # Query result size
-M = 100
+M = 10
 
 if __name__ == "__main__":
    # URL used to check for similarities
    url = 'https://es.wikipedia.org/wiki/Procesamiento_de_lenguajes_naturales'
    
-   # Fetch html of the query url
+   # Fetch text content of the query url
    r = requests.get(url)
-   query_raw_text = r.text
-
-   # Preprocess query document
-   query_document = Preprocess(query_raw_text)
-
+   query_raw_text = GetText(r.text)
+   
    # Load documents list
    documents = []
-   with open('web_crawler/data/docs.json', 'r') as f:
+   with open('web_crawler/web_crawler/spiders/data/docs.json', 'r') as f:
       documents = json.loads(f.read())
 
    #-------------------------- DOCUMENTS RANKING ----------------------------------------------- 
 
    # Load spacy spanish language model
    nlp = spacy.load('es_core_news_sm')
+
+   # Preprocess query document
+   query_document = Preprocess(query_raw_text)
 
    # Process query document
    query_nlp = nlp(' '.join(query_document))
@@ -56,10 +56,10 @@ if __name__ == "__main__":
       if len(heap) > M:
          heapq.heappop(heap)
 
-   # Store top M documents in results folder
-   n = 1
-   for sim_val, url, content in heap:
-      with open(f'results/{n}.txt', 'w') as f:
-         f.write(f'{str(sim_val)} {url} \n')
-         f.write(content)
-      n += 1
+      # Store top M documents in results folder
+      n = 1
+      for sim_val, url, content in heap:
+         with open(f'results/{n}.txt', 'w') as f:
+            f.write(f'{str(sim_val)} {url} \n')
+            f.write(content)
+         n += 1
